@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.videosize {
+  clip-path: polygon(
+    21% 23%,
+    70% 0%,
+    100% 0,
+    100% 100%,
+    73% 84%,
+    0 100%,
+    0% 70%,
+    0 0
+  );
+}
