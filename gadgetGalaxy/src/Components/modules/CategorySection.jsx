@@ -25,11 +25,16 @@ function CategorySection() {
                   <p className="text-4xl xl:text-5xl font-bold opacity-20 mb-2">
                     Earphone
                   </p>
-                  <Button
-                    text="Browse"
-                    bgColor={"bg-danger"}
-                    textColor={"text-white"}
-                  />
+                     
+                  <a href="/ProductOne">
+                
+                <Button
+                  text="Browse"
+                  bgColor={"bg-danger"}
+                  textColor={"text-white"}
+                
+                />
+                  </a>
                 </div>
               </div>
               <img
