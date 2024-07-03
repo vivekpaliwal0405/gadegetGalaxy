@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
-import Login from '../registration/Login';
 import { Link } from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
 
 const PopupMenu = () => {
-  const { user , isAuthenticated,logout } = useAuth0();
-  console.log("current user",user)
-
-
-
-
   const [isChecked, setIsChecked] = useState(false);
 
   return (
@@ -27,9 +19,7 @@ const PopupMenu = () => {
           isChecked ? "scale-95" : "hover:scale-110"
         }`}
       >
-        {
-          isAuthenticated ? <img src={user.picture} alt=""  /> :
-          <svg
+        <svg
           viewBox="0 0 24 24"
           fill="white"
           height="20"
@@ -38,9 +28,6 @@ const PopupMenu = () => {
         >
           <path d="M12 2c2.757 0 5 2.243 5 5.001 0 2.756-2.243 5-5 5s-5-2.244-5-5c0-2.758 2.243-5.001 5-5.001zm0-2c-3.866 0-7 3.134-7 7.001 0 3.865 3.134 7 7 7s7-3.135 7-7c0-3.867-3.134-7.001-7-7.001zm6.369 13.353c-.497.498-1.057.931-1.658 1.302 2.872 1.874 4.378 5.083 4.972 7.346h-19.387c.572-2.29 2.058-5.503 4.973-7.358-.603-.374-1.162-.811-1.658-1.312-4.258 3.072-5.611 8.506-5.611 10.669h24c0-2.142-1.44-7.557-5.631-10.647z" />
         </svg>
-        }
-        
-        
       </div>
 
       <nav
@@ -51,18 +38,8 @@ const PopupMenu = () => {
         } transition-transform duration-150 mt-2 bg-slate-950 p-3 rounded shadow-lg`}
         style={{ top: "3.5rem", left: 0 }}
       >
-        { isAuthenticated  && <legend className="uppercase text-white text-xs mb-2">Hello <br/> {user.name}</legend>}
-        {
-          isAuthenticated ? 
-          <ul className="list-none p-0 w-[100px] " >
-          <li className="">
-            <button  onClick={(e) => logout()} className="flex items-center gap-2 w-full p-2 text-slate-100 rounded hover:bg-blue-500 hover:text-white">
-              <span>Log Out</span>
-            </button >
-          </li>
-        </ul> :
-        <ul className="list-none p-0 w-[100px] " >
-          <li className="mb-4 ">
+        <ul className="list-none p-0 w-[100px]">
+          <li className="mb-4">
             <Link
               to="/Login"
               className="flex items-center gap-2 w-full p-2 text-slate-100 rounded hover:bg-blue-500 hover:text-white"
@@ -83,7 +60,10 @@ const PopupMenu = () => {
             </Link>
           </li>
           <li>
-            <Link to="/SignUp" className="flex items-center gap-2 w-full p-2 text-slate-100 rounded hover:bg-blue-500 hover:text-white">
+            <Link
+              to="/SignUp"
+              className="flex items-center gap-2 w-full p-2 text-slate-100 rounded hover:bg-blue-500 hover:text-white"
+            >
               <svg
                 width="14"
                 height="14"
@@ -100,16 +80,9 @@ const PopupMenu = () => {
             </Link>
           </li>
         </ul>
-        }
-
       </nav>
     </label>
   );
 };
 
 export default PopupMenu;
-
-
-
-
-

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import photo from "../img/signupphoto.avif";
 import { Link } from 'react-router-dom';
-import { useAuth0 } from "@auth0/auth0-react";
+// import { useAuth0 } from "@auth0/auth0-react";
 
 export function SignUp() {
  
   
-    const { user , loginWithRedirect } = useAuth0();
-    console.log("current user",user)
+    // const { user , loginWithRedirect } = useAuth0();
+    // console.log("current user",user)
   
 
     const initialFormState = {
@@ -146,7 +146,7 @@ export function SignUp() {
             <div className="mt-3 space-y-3">
               <button
                 type="button"
-                onClick={(e) => loginWithRedirect()}
+                // onClick={(e) => loginWithRedirect()}
                 className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
               >
                 <span className="mr-2 inline-block">
@@ -163,7 +163,7 @@ export function SignUp() {
               </button>
               <button
                 type="button"
-                onClick={(e) => loginWithRedirect()}
+                // onClick={(e) => loginWithRedirect()}
                 className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 bg-white px-3.5 py-2.5 font-semibold text-gray-700 transition-all duration-200 hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black focus:outline-none"
               >
                 <span className="mr-2 inline-block">

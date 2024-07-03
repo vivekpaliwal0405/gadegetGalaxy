@@ -4,20 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'semantic-ui-css/semantic.min.css'
-import { Auth0Provider } from '@auth0/auth0-react';
+// import { Auth0Provider } from '@auth0/auth0-react';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Auth0Provider
+    {/* <Auth0Provider
        domain="dev-qrqyldb71xicjsin.us.auth0.com"
        clientId="JeXUQH3ftpDLSDHvV4aWuoSL6j8KMeqN"
        authorizationParams={{
          redirect_uri: window.location.origin
        }}
-      >
+      > */}
     <App />
-    </Auth0Provider>
+    {/* </Auth0Provider> */}
   </React.StrictMode>
 );
 
