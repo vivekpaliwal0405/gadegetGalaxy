@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useRef } from "react";
 import video from "../img/productad.mp4";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductPage = () => {
   const [product, setProduct] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const videoRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -30,30 +31,17 @@ const ProductPage = () => {
     setSelectedCategory(category);
   };
 
-
-
-
   const handleSinglePage = (id) => {
-    axios.get('http://localhost:4001/product/' + id)
-      .then(res => {
-        console.log(res);
-        // Optionally remove the deleted product from the state to update the UI
-        setProduct(product.filter(product => product._id !== id));
-      })
-      .catch(err => console.log(err));
+    navigate(`/Singleproduct/${id}`);
+  };
 
-      // if (res.ok) {
-      //   Navigate('/Singleproduct/:id');
-      // } else {
-      //   console.log('Error updating product');
-      // }
-  }
+  const handleAddToCart = (id) => {
+    // Handle adding the product to the cart here
+    console.log(`Product with id ${id} added to cart.`);
+  };
 
-
-
-
-  const filteredProducts = selectedCategory === "All" 
-    ? product 
+  const filteredProducts = selectedCategory === "All"
+    ? product
     : product.filter(item => item.category === selectedCategory);
 
   return (
@@ -65,7 +53,7 @@ const ProductPage = () => {
           className="w-full h-[489px] object-cover rounded-md"
           autoPlay
           loop
-          muted 
+          muted
           object-fill
         >
           Your browser does not support the video tag.
@@ -94,6 +82,7 @@ const ProductPage = () => {
           <h2 className="text-2xl font-semibold my-4">
             {selectedCategory === "All" ? "All Products" : selectedCategory}
           </h2>
+
           <div className="w-full flex flex-wrap justify-center">
             {filteredProducts.map((product, index) => (
               <div
@@ -101,7 +90,7 @@ const ProductPage = () => {
                 className="w-[300px] rounded-md border ml-4 hover:shadow-black hover:scale-105 duration-300 shadow-lg m-4 relative cursor-pointer"
                 onClick={(e) => {
                   if (!e.target.closest("button")) {
-                   handleSinglePage(product._id);
+                    handleSinglePage(product._id);
                   }
                 }}
               >
@@ -118,7 +107,7 @@ const ProductPage = () => {
                   <p className="mt-3 text-sm text-gray-600">₹{product.price}</p>
                   <button
                     type="button"
-                    // onClick={() => handleSinglePage(product._id)}
+                    onClick={() => handleAddToCart(product._id)}
                     className="mt-4 rounded-sm bg-black px-2.5 py-1 text-[10px] font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   >
                     Add to Cart
