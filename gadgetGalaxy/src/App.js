@@ -20,6 +20,8 @@ import ViewProduct from './Admin/pages/ViewProduct';
 import UpdateProduct from './Admin/pages/UpdateProduct';
 import AddCategory from "./Admin/pages/AddCategory";
 import Cart from "./Components/Pages/Cart";
+import ProductOne from "./Components/Pages/Productone";
+import Discount from "./Components/Pages/Discount";
 
 
 
@@ -49,6 +51,8 @@ function App() {
     <Route path="/Contact" element={<Contact />} /> 
     <Route path="/Product" element={<ProductPage />} /> 
     <Route path="/Cart" element={<Cart />} /> 
+    <Route path="/Discount" element={<Discount/>} /> 
+    <Route path="/ProductOne" element={<ProductOne/>} /> 
 
 
 
