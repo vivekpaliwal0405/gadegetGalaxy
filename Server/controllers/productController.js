@@ -12,43 +12,7 @@ const productController = {
         }
     },
 
-    // async update(req, res, next) {
-    //     try {
-    //         const { id } = req.params;
-    //         const { productName, description, price, category } = req.body;
-
-    //         const updateData = { productName, description, price, category };
-
-    //         // If there's a new file, handle the file upload
-    //         if (req.file) {
-    //             // Get the existing product
-    //             const existingProduct = await Product.findById(id);
-    //             if (existingProduct && existingProduct.photo) {
-    //                 // Remove the old file
-    //                 const oldFilePath = path.join(__dirname, '..', existingProduct.photo);
-    //                 if (fs.existsSync(oldFilePath)) {
-    //                     fs.unlinkSync(oldFilePath);
-    //                 }
-    //             }
-
-    //             // Update with the new file path
-    //             updateData.photo = path.join('/uploads/products/img', req.file.filename);
-    //         }
-
-    //         // Update the product in the database
-    //         const updatedProduct = await Product.findByIdAndUpdate(id, updateData, { new: true });
-
-    //         if (!updatedProduct) {
-    //             return res.status(404).json({ error: 'Product not found' });
-    //         }
-
-    //         res.status(200).json(updatedProduct);
-    //     } catch (error) {
-    //         res.status(500).json({ error: "Error while updating product", serverError: error });
-    //     }
-    // },
-
-
+  
     async update(req, res, next) {
         try {
           const { id } = req.params;
@@ -79,7 +43,18 @@ const productController = {
         }
       },
       
+      async search(req, res, next) {
+        let categories;
+        try{
+            const{id} = req.params
+            categories = await Product.findById({_id: id});
+        }catch(error){
+            res.status(404).json({error: "server error" , serverError : "error"})
 
+
+        }
+        res.status(200).json(categories);
+    },
 
     async store(req, res, next) {
         try {

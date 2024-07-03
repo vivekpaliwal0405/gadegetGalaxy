@@ -1,13 +1,19 @@
+import axios from "axios";
 import React from "react";
 
 const Cart = () => {
+  // const [product, setProduct] = useState([]);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:4001/product/" + id)
+  //     .then((response) => setProduct(response.data))
+  //     .catch((err) => console.log(err));
+  // }, []);
+
+
   return (
     <div className="p-10">
-      <div className="flex items-center gap-4 mb-8">
-        <img src="user-profile.jpg" alt="User Profile" className="w-20 h-20 rounded-full" />
-        <h2 className="text-2xl capitalize">John Doe</h2>
-      </div>
-
       <div className="text-center uppercase mb-4">
         <h1 className="text-2xl font-bold">Your Shopping Cart</h1>
       </div>
