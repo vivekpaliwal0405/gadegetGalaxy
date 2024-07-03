@@ -41,7 +41,7 @@ function ViewProduct() {
             {/* Your main content goes here */}
             <div className="flex flex-wrap -mx-2">
               {product.map((product, index) => (
-                <article key={index} className="max-w-sm w-full bg-white rounded-lg shadow-lg m-2 overflow-hidden dark:bg-gray-700">
+                <article key={index} className="max-w-sm w-full bg-white rounded-lg shadow-lg m-2 overflow-hidden dark:bg-gray-700 hover:scale-105 duration-300">
                   <div>
                     <img
                       className="object-cover h-44 w-full"

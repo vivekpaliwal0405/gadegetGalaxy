@@ -113,25 +113,6 @@ const AddProduct = () => {
                   required
                 />
               </div>
-              {/* <div>
-                <label
-                  htmlFor="category"
-                  className="block text-sm font-medium text-gray-700"
-                >
-                  Category
-                </label>
-                <input
-                  type="text"
-                  id="category"
-                  className="mt-1 block w-full border-gray-300 bg-gray-700 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                  value={category}
-                  style={{ minHeight: "3rem" }}
-                  onChange={(e) => setCategory(e.target.value)}
-                  required
-                />
-              </div> */}
-
-
 <div>
                 <label
                   htmlFor="category"
