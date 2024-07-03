@@ -5,7 +5,7 @@ import Layout from "./Components/Layouts/Layout";
 import Home from "./Components/Pages/Home";
 import { About } from "./Components/Pages/About";
 
-import { BackgroundBeams } from "./Components/BackgroundBerams";
+// import { BackgroundBeams } from "./Components/BackgroundBerams";
 
 import Login from "./Components/registration/Login";
 
@@ -20,7 +20,7 @@ import ViewProduct from './Admin/pages/ViewProduct';
 import UpdateProduct from './Admin/pages/UpdateProduct';
 import AddCategory from "./Admin/pages/AddCategory";
 import Cart from "./Components/Pages/Cart";
-import ProductOne from "./Components/Pages/Productone";
+import Singleproduct from "./Components/Pages/Singleproduct";
 import Discount from "./Components/Pages/Discount";
 
 
@@ -52,7 +52,7 @@ function App() {
     <Route path="/Product" element={<ProductPage />} /> 
     <Route path="/Cart" element={<Cart />} /> 
     <Route path="/Discount" element={<Discount/>} /> 
-    <Route path="/ProductOne" element={<ProductOne/>} /> 
+    <Route path="/Singleproduct/:id" element={<Singleproduct/>} /> 
 
 
 

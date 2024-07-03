@@ -1,7 +1,33 @@
-import React from 'react'
-import { ChevronLeft, ChevronRight, Heart, Share } from 'lucide-react'
+import React, { useEffect, useState } from 'react';
+import { Heart, Share } from 'lucide-react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-export function ProductOne() {
+export function Singleproduct() {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios
+     .get(`http://localhost:4001/product/${id}`)
+     .then((response) => {
+        setProduct(response.data);
+      })
+     .catch((err) => {
+        setError(err.message);
+      });
+  }, [id]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+
   return (
     <div className="sp mx-auto max-w-7xl px-2 py-10 lg:px-0">
       <div className="overflow-hidden">
@@ -13,43 +39,20 @@ export function ProductOne() {
                   <div className="relative flex items-center justify-center">
                     <img
                       alt="Product gallery 1"
-                      src="https://images.unsplash.com/photo-1580902394724-b08ff9ba7e8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80"
+                      src={product.img}
                       width={650}
                       height={590}
                       className="rounded-lg object-cover md:h-[300px] md:w-full lg:h-full"
                     />
-                  </div>
-                  <div className="absolute top-2/4 z-10 flex w-full items-center justify-between">
-                    <ChevronLeft className="text-white" />
-                    <ChevronRight className="text-white" />
-                  </div>
+                  </div>             
                 </div>
-                <div className="flex gap-2 xl:flex-col">
-                  {[
-                    'https://images.unsplash.com/photo-1580902394836-21e0d429b7f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=924&q=80',
-                    'https://images.unsplash.com/photo-1580902394743-1394a7ec93d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-                    'https://images.unsplash.com/photo-1580902394767-81b0facc0894?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-                  ].map((image, index) => (
-                    <div
-                      key={image}
-                      className="border-border-base flex cursor-pointer items-center justify-center overflow-hidden rounded border transition hover:opacity-75 "
-                    >
-                      <img
-                        alt={`Product ${index}`}
-                        src={image}
-                        decoding="async"
-                        loading="lazy"
-                        className="h-20 w-20 object-cover md:h-24 md:w-24 lg:h-28 lg:w-28 xl:w-32"
-                      />
-                    </div>
-                  ))}
-                </div>
+               
               </div>
             </div>
             <div className="flex shrink-0 flex-col lg:w-[430px] xl:w-[470px] 2xl:w-[480px]">
               <div className="pb-5">
-                <h2 className="text-lg font-semibold md:text-xl xl:text-2xl">Nike Airmax Pro V2</h2>
-                <p className="mt-4 font-semibold">$250</p>
+                <h2 className="text-lg font-semibold md:text-xl xl:text-2xl">{product.productName}</h2>
+                <p className="mt-4 font-semibold">{product.price}</p>
               </div>
               <div className="mb-2 pt-0.5">
                 <h4 className="text-15px mb-3 font-normal capitalize text-opacity-70">
@@ -111,4 +114,4 @@ export function ProductOne() {
     </div>
   )
 }
-export default ProductOne
+export default Singleproduct

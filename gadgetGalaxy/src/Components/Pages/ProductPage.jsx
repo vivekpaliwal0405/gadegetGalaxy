@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import video from "../img/productad.mp4";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const ProductPage = () => {
   const [product, setProduct] = useState([]);
@@ -29,6 +30,28 @@ const ProductPage = () => {
     setSelectedCategory(category);
   };
 
+
+
+
+  const handleSinglePage = (id) => {
+    axios.get('http://localhost:4001/product/' + id)
+      .then(res => {
+        console.log(res);
+        // Optionally remove the deleted product from the state to update the UI
+        setProduct(product.filter(product => product._id !== id));
+      })
+      .catch(err => console.log(err));
+
+      // if (res.ok) {
+      //   Navigate('/Singleproduct/:id');
+      // } else {
+      //   console.log('Error updating product');
+      // }
+  }
+
+
+
+
   const filteredProducts = selectedCategory === "All" 
     ? product 
     : product.filter(item => item.category === selectedCategory);
@@ -42,6 +65,7 @@ const ProductPage = () => {
           className="w-full h-[489px] object-cover rounded-md"
           autoPlay
           loop
+          muted 
           object-fill
         >
           Your browser does not support the video tag.
@@ -74,7 +98,12 @@ const ProductPage = () => {
             {filteredProducts.map((product, index) => (
               <div
                 key={index}
-                className="w-[300px] rounded-md border ml-4 hover:shadow-black hover:scale-105 duration-300 shadow-lg m-4 relative"
+                className="w-[300px] rounded-md border ml-4 hover:shadow-black hover:scale-105 duration-300 shadow-lg m-4 relative cursor-pointer"
+                onClick={(e) => {
+                  if (!e.target.closest("button")) {
+                   handleSinglePage(product._id);
+                  }
+                }}
               >
                 <img
                   src={product.img}
@@ -89,6 +118,7 @@ const ProductPage = () => {
                   <p className="mt-3 text-sm text-gray-600">₹{product.price}</p>
                   <button
                     type="button"
+                    // onClick={() => handleSinglePage(product._id)}
                     className="mt-4 rounded-sm bg-black px-2.5 py-1 text-[10px] font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   >
                     Add to Cart
