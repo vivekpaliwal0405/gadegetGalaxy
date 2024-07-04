@@ -17,21 +17,17 @@ const productController = {
         try {
           const { id } = req.params;
           const { productName, description, price, category } = req.body;
+
+          console.log(id)
       
           const updateData = { productName, description, price, category };
       
           if (req.file) {
-            const existingProduct = await Product.findById(id);
-            if (existingProduct && existingProduct.photo) {
-              const oldFilePath = path.join(__dirname, '..', existingProduct.photo);
-              if (fs.existsSync(oldFilePath)) {
-                fs.unlinkSync(oldFilePath);
-              }
-            }
-            updateData.photo = path.join('/uploads/products/img', req.file.filename);
+            updateData.img = '/uploads/products/img/' + req.file.filename
           }
       
           const updatedProduct = await Product.findByIdAndUpdate(id, updateData, { new: true });
+          console.log(updatedProduct)
       
           if (!updatedProduct) {
             return res.status(404).json({ error: 'Product not found' });
