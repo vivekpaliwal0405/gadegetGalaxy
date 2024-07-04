@@ -102,9 +102,7 @@ export function Singleproduct() {
                   Product Details:
                 </h3>
                 <p className="text-sm">
-                  A chip (often just chip, or crisp in British and Irish English) may be a thin
-                  slice of potato that has been either deep fried or baked until crunchy. theyre
-                  commonly served as a snack, side dish, or appetizer.
+                  {product.description}
                 </p>
               </div>
             </div>

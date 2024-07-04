@@ -7,6 +7,7 @@ const path = require("path");
 const productController = require('../controllers/productController');
 const signUpController = require('../controllers/userSignUpController');
 const contactController = require('../controllers/contactController');
+const authenticateToken = require('../Auth/userAuth');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -30,10 +31,15 @@ router.put("/product/:id", upload.single("img"), productController.update);
 
 
 //sign up router
-router.post("/signup", signUpController.signupstore);
-router.get("/signup", signUpController.signupindex);
-router.delete("/signup/:id", signUpController.signupdelete);
+// router.post("/signup", signUpController.signupstore);
+// router.get("/signup", signUpController.signupindex);
+// router.delete("/signup/:id", signUpController.signupdelete);
 
+
+router.post('/signup', signUpController.signupstore);
+router.post('/login', signUpController.login);
+router.get('/users', authenticateToken, signUpController.signupindex);
+router.delete('/users/:id', authenticateToken, signUpController.signupdelete);
 
 
 //contact routes
