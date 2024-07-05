@@ -28,8 +28,8 @@ const PopupMenu = () => {
 
       <div
         tabIndex="0"
-        className={`flex items-center justify-center bg-blue-700 w-10 h-10 rounded-full cursor-pointer transition-transform duration-150 ${
-          isChecked ? "scale-95" : "hover:scale-110"
+        className={`flex items-center justify-center  bg-neutral-900 w-10 h-10 rounded-full cursor-pointer transition-transform duration-150 ${
+          isChecked ? "scale-95" : "hover:scale-125"
         }`}
       >
         <svg

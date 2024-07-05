@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import video from "../img/productad.mp4";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ProductPage = () => {
   const [product, setProduct] = useState([]);

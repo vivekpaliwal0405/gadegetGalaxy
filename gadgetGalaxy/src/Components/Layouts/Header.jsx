@@ -15,8 +15,8 @@ const menuItems = [
     href: "/",
   },
   {
-    name: "About",
-    href: "/About",
+    name: "Products",
+    href: "/Product",
   },
   {
     name: "Contact",
@@ -68,7 +68,7 @@ export function Header() {
               <div className="dropdown-menu absolute top-full left-0 w-48  hidden group-hover:block   dark:bg-neutral-900 rounded-md shadow-lg">
                 <ul className="py-1">
                   <li>
-                    <Link className="block px-4 py-2 text-gray-900 dark:text-gray-100  hover:bg-gray-100 dark:hover:bg-gray-700" to="/Product">All Product</Link>
+                    <Link className="block px-4 py-2 text-gray-900 dark:text-gray-100  hover:bg-gray-100 dark:hover:bg-gray-700" to="/About">About</Link>
                   </li>
 
                   <li>
