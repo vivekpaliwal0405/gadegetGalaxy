@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import image1 from "../img/earphone.png";
 import image2 from "../img/watch.png";
 import image3 from "../img/macbook.png";
@@ -11,9 +12,9 @@ function CategorySection() {
   return (
     <>
       <div className="py-8 justify-center item-center dark:bg-neutral-900 duration-200">
-        <div className="flex justify-center item-center mb-5 font-semibold font-serif text-  text-5xl">
+        {/* <div className="flex justify-center item-center mb-5 font-semibold font-serif text-  text-5xl">
           Category
-        </div>
+        </div> */}
         <div className="container">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* First */}
@@ -25,16 +26,13 @@ function CategorySection() {
                   <p className="text-4xl xl:text-5xl font-bold opacity-20 mb-2">
                     Earphone
                   </p>
-                     
-                  <a href="/ProductOne">
-                
-                <Button
-                  text="Browse"
-                  bgColor={"bg-danger"}
-                  textColor={"text-white"}
-                
-                />
-                  </a>
+                  <Link to="/Productpage">
+                    <Button
+                      text="Browse"
+                      bgColor={"bg-danger"}
+                      textColor={"text-white"}
+                    />
+                  </Link>
                 </div>
               </div>
               <img
@@ -53,11 +51,13 @@ function CategorySection() {
                   <p className="text-4xl xl:text-5xl font-bold opacity-50 mb-2">
                     Smartwatch
                   </p>
-                  <Button
-                    text="Browse"
-                    bgColor={"bg-secondary"}
-                    textColor={"text-white"}
-                  />
+                  <Link to="/Product?category=watch">
+                    <Button
+                      text="Browse"
+                      bgColor={"bg-secondary"}
+                      textColor={"text-white"}
+                    />
+                  </Link>
                 </div>
               </div>
               <img
@@ -75,11 +75,13 @@ function CategorySection() {
                   <p className="text-4xl xl:text-5xl font-bold opacity-20 mb-2">
                     MacBook
                   </p>
-                  <Button
-                    text="Browse"
-                    bgColor={"bg-light"}
-                    textColor={"text-dark"}
-                  />
+                  <Link to="/Product?category=Laptop">
+                    <Button
+                      text="Browse"
+                      bgColor={"bg-light"}
+                      textColor={"text-dark"}
+                    />
+                  </Link>
                 </div>
               </div>
               <img
@@ -102,11 +104,13 @@ function CategorySection() {
                     <p className="text-4xl xl:text-5xl font-bold opacity-20 mb-2">
                       Gaming
                     </p>
-                    <Button
-                      text="Browse"
-                      bgColor={"bg-light"}
-                      textColor={"text-danger"}
-                    />
+                    <Link to="/Product">
+                      <Button
+                        text="Browse"
+                        bgColor={"bg-light"}
+                        textColor={"text-danger"}
+                      />
+                    </Link>
                   </div>
                 </div>
                 <img
@@ -124,11 +128,13 @@ function CategorySection() {
                     <p className="text-4xl xl:text-5xl font-bold opacity-20 mb-2">
                       Speaker
                     </p>
-                    <Button
-                      text="Browse"
-                      bgColor={"bg-black"}
-                      textColor={"text-white"}
-                    />
+                    <Link to="/Product">
+                      <Button
+                        text="Browse"
+                        bgColor={"bg-black"}
+                        textColor={"text-white"}
+                      />
+                    </Link>
                   </div>
                 </div>
                 <img
@@ -147,11 +153,13 @@ function CategorySection() {
                     <p className="text-4xl xl:text-5xl font-bold opacity-40 mb-2">
                       Iphone
                     </p>
-                    <Button
-                      text="Browse"
-                      bgColor={"bg-black"}
-                      textColor={"text-white"}
-                    />
+                    <Link to="/Product">
+                      <Button
+                        text="Browse"
+                        bgColor={"bg-black"}
+                        textColor={"text-white"}
+                      />
+                    </Link>
                   </div>
                 </div>
                 <img

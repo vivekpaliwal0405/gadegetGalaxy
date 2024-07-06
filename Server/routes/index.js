@@ -30,11 +30,6 @@ router.put("/product/:id", upload.single("img"), productController.update);
 
 
 
-//sign up router
-// router.post("/signup", signUpController.signupstore);
-// router.get("/signup", signUpController.signupindex);
-// router.delete("/signup/:id", signUpController.signupdelete);
-
 
 router.post('/signup', signUpController.signupstore);
 router.post('/login', signUpController.login);
