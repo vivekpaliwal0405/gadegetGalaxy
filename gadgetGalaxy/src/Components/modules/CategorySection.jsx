@@ -26,7 +26,7 @@ function CategorySection() {
                   <p className="text-4xl xl:text-5xl font-bold opacity-20 mb-2">
                     Earphone
                   </p>
-                  <Link to="/Productpage">
+                  <Link to="/Product?category=Earphone">
                     <Button
                       text="Browse"
                       bgColor={"bg-danger"}
@@ -104,7 +104,7 @@ function CategorySection() {
                     <p className="text-4xl xl:text-5xl font-bold opacity-20 mb-2">
                       Gaming
                     </p>
-                    <Link to="/Product">
+                    <Link to="/Product?category=Gaming">
                       <Button
                         text="Browse"
                         bgColor={"bg-light"}
@@ -128,7 +128,7 @@ function CategorySection() {
                     <p className="text-4xl xl:text-5xl font-bold opacity-20 mb-2">
                       Speaker
                     </p>
-                    <Link to="/Product">
+                    <Link to="/Product?category=Speaker">
                       <Button
                         text="Browse"
                         bgColor={"bg-black"}
@@ -153,7 +153,7 @@ function CategorySection() {
                     <p className="text-4xl xl:text-5xl font-bold opacity-40 mb-2">
                       Iphone
                     </p>
-                    <Link to="/Product">
+                    <Link to="/Product?category=Phone">
                       <Button
                         text="Browse"
                         bgColor={"bg-black"}

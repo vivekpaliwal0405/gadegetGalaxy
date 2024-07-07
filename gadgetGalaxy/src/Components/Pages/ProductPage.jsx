@@ -1,35 +1,41 @@
 import React, { useEffect, useState, useRef } from "react";
 import video from "../img/productad.mp4";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ProductPage = () => {
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const videoRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     axios
       .get("http://localhost:4001/product")
       .then((response) => {
-        setProduct(response.data);
-        const uniqueCategories = ["All", ...new Set(response.data.map(item => item.category))];
+        setProducts(response.data);
+        const uniqueCategories = ["All", ...new Set(response.data.map((item) => item.category))];
         setCategories(uniqueCategories);
+
+        // Check for the category in the URL query string
+        const category = new URLSearchParams(location.search).get("category");
+        if (category) {
+          setSelectedCategory(category);
+        }
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [location.search]);  // Added location.search to the dependency array
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play();
+    // Update the URL to reflect the selected category
+    if (selectedCategory === "All") {
+      navigate("/Product");
+    } else {
+      navigate(`/Product?category=${selectedCategory}`);
     }
-  }, [videoRef]);
-
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-  };
+  }, [selectedCategory, navigate]);
 
   const handleSinglePage = (id) => {
     navigate(`/Singleproduct/${id}`);
@@ -41,8 +47,8 @@ const ProductPage = () => {
   };
 
   const filteredProducts = selectedCategory === "All"
-    ? product
-    : product.filter(item => item.category === selectedCategory);
+    ? products
+    : products.filter((item) => item.category === selectedCategory);
 
   return (
     <div className="w-full bg-gray-100 flex flex-col items-center">
@@ -54,7 +60,7 @@ const ProductPage = () => {
           autoPlay
           loop
           muted
-          object-fill
+          objectFill
         >
           Your browser does not support the video tag.
         </video>
@@ -67,7 +73,7 @@ const ProductPage = () => {
             {categories.map((category, index) => (
               <div
                 key={index}
-                onClick={() => handleCategoryClick(category)}
+                onClick={() => setSelectedCategory(category)}
                 className={`cursor-pointer px-4 py-2 mb-2 rounded-md hover:bg-gray-300 ${
                   selectedCategory === category ? "bg-gray-300" : ""
                 }`}
