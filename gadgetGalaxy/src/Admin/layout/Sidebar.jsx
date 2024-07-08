@@ -57,7 +57,7 @@ const menuItems = [
   { label: "View Product", link: "/Viewproduct", icon: FaEye  },
   { label: "Add Category", link: "/Addcategory", icon: TbCategory  },
   { label: "Querys", link: "/Coustomerquery", icon: MdQueryStats },
-  { label: "Orders", link: "#", icon: FaBoxOpen },
+  { label: "Orders", link: "/CoustomerOrderpage", icon: FaBoxOpen },
   { label: "Logout", link: "/Adminlogin", icon: FaSignOutAlt },
 ];
 

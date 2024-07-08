@@ -318,7 +318,7 @@ const AddProduct = () => {
                 <div className="mt-1 flex items-center">
                   <label
                     htmlFor="upload-button"
-                    className="cursor-pointer bg-gray-700 rounded-md py-2 px-3 border border-gray-300 shadow-sm text-sm font-medium text-slate-700 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 transform"
+                    className="cursor-pointer bg-gray-700 rounded-md py-2 px-3 border border-gray-300 shadow-sm text-sm font-medium text-white hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 transform"
                   >
                     Upload Photo
                   </label>

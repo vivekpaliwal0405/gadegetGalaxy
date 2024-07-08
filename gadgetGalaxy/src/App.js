@@ -22,6 +22,7 @@ import AddCategory from "./Admin/pages/AddCategory";
 import Cart from "./Components/Pages/Cart";
 import Singleproduct from "./Components/Pages/Singleproduct";
 import Discount from "./Components/Pages/Discount";
+import CoustomerOrderPage from "./Admin/pages/CoustomerOrderPage";
 
 
 
@@ -42,6 +43,7 @@ function App() {
     <Route path="/Viewproduct" element={<ViewProduct />} /> 
     <Route path="/Updateproduct/:id" element={<UpdateProduct />} /> 
     <Route path="/Addcategory" element={<AddCategory />} /> 
+    <Route path="/CoustomerOrderPage" element={<CoustomerOrderPage />} /> 
   
     <Route path="/SignUp" element={<SignUp />} /> 
     <Route path="/Login" element={<Login />} /> 
