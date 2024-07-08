@@ -1,9 +1,12 @@
+const fs = require('fs');
+const path = require('path');
 const Cart = require("../models/cartModel");
 
 const cartController = {
     async addItem(req, res, next) {
         try {
             const { userId, productId, quantity } = req.body;
+            console.log("Add item request body:", req.body); // Add log for debugging
             let cart = await Cart.findOne({ userId });
             if (cart) {
                 const itemIndex = cart.items.findIndex(item => item.productId == productId);
@@ -18,17 +21,34 @@ const cartController = {
             await cart.save();
             res.status(201).json(cart);
         } catch (error) {
+            console.error("Error while adding item to cart:", error); // Add log for debugging
             res.status(500).json({ error: "Error while adding item to cart", serverError: error });
         }
     },
+
+    // async getCart(req, res, next) {
+    //     try {
+    //         const { userId } = req.params;
+    //         const cart = await Cart.findOne({ userId }).populate('items.productId');
+    //         res.status(200).json(cart);
+    //     } catch (error) {
+    //         res.status(500).json({ error: "Error while fetching cart", serverError: error });
+    //     }
+    //     // console.log(userId);
+    // },
+
 
     async getCart(req, res, next) {
         try {
             const { userId } = req.params;
             const cart = await Cart.findOne({ userId }).populate('items.productId');
+            if (!cart) {
+                return res.status(404).json({ error: "Cart not found" });
+            }
             res.status(200).json(cart);
         } catch (error) {
-            res.status(500).json({ error: "Error while fetching cart", serverError: error });
+            console.error("Error while fetching cart:", error);
+            res.status(500).json({ error: "An error occurred while fetching the cart" });
         }
     },
 
