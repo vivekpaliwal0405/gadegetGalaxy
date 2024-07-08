@@ -31,7 +31,7 @@ router.put("/product/:id", upload.single("img"), productController.update);
 
 
 
-
+//sign uproutes
 router.post('/signup', signUpController.signupstore);
 router.post('/login', signUpController.login);
 router.get('/users', authenticateToken, signUpController.signupindex);

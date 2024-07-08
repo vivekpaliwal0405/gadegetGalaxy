@@ -37,7 +37,7 @@ function Cart() {
             <section aria-labelledby="cart-heading" className="rounded-lg bg-white lg:col-span-8">
               <h2 id="cart-heading" className="sr-only">Items in your shopping cart</h2>
               <ul role="list" className="divide-y divide-gray-200">
-                {products.map(product => (
+                {products.map((product) => (
                   <div key={product._id}>
                     <li className="flex py-6 sm:py-6">
                       <div className="flex-shrink-0">
