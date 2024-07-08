@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Carousel from "react-bootstrap/Carousel";
 import slider from "../img/slider2.jpg";
 import slider2 from "../img/silder2.webp";
-import slider3 from "../img/slider3.jpg";
+import slider3 from "../img/sliderrr.jpg";
 import CategorySection from "../modules/CategorySection";
 import Services from "../modules/Services";
 import Videoad from "../modules/Videoad";

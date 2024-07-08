@@ -7,6 +7,7 @@ const path = require("path");
 const productController = require('../controllers/productController');
 const signUpController = require('../controllers/userSignUpController');
 const contactController = require('../controllers/contactController');
+const cartController = require('../controllers/cartController');
 const authenticateToken = require('../Auth/userAuth');
 
 const storage = multer.diskStorage({
@@ -42,5 +43,12 @@ router.post("/contact", contactController.contactstore);
 router.get("/contact", contactController.contactindex);
 router.delete("/contact/:id", contactController.contactdelete);
 
+
+
+
+//cart routes
+router.post("/cart", authenticateToken, cartController.addItem);
+router.get("/cart/:userId", authenticateToken, cartController.getCart);
+router.delete("/cart/:userId/:productId", authenticateToken, cartController.removeItem);
 
 module.exports = router;

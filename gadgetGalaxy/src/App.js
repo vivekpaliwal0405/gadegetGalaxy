@@ -27,9 +27,11 @@ import Discount from "./Components/Pages/Discount";
 
 
 
+
 function App() {
   return (
    <>
+    
    <BrowserRouter>
    {/* <BackgroundBeams classname='bg-black h-screen'/> */}
     <Routes>
@@ -60,6 +62,7 @@ function App() {
     </Route>
     </Routes>
    </BrowserRouter> 
+
   
    </>
   );
