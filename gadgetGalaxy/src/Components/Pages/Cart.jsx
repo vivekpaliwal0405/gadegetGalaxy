@@ -21,7 +21,8 @@ function Cart() {
       }
     })
     .then(response => {
-      setProducts(response.data);
+      setProducts(response.data.items);
+      console.log(response.data.items);
     })
     .catch(err => {
       setError(err.message);
