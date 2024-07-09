@@ -27,6 +27,29 @@ export function Singleproduct() {
     return <div>Error: {error}</div>;
   }
 
+  const handleAddToCart = (productId) => {
+    const token = localStorage.getItem('token'); // Assuming token contains user ID information
+    if (!token) {
+      console.log('User not logged in');
+      return;
+    }
+
+    const userId = JSON.parse(atob(token.split('.')[1])).id; // Extract user ID from JWT token
+    axios.post('http://localhost:4001/cart', { userId, productId }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      console.log(`Product with id ${productId} added to cart.`, response.data);
+    })
+    .catch(error => {
+      console.error('Error adding product to cart:', error.response.data);
+    });
+  };
+
+
+
 
   return (
     <div className="sp mx-auto max-w-7xl px-2 py-10 lg:px-0">
@@ -74,6 +97,7 @@ export function Singleproduct() {
               <div className="space-y-2.5 pt-1.5 md:space-y-3.5 lg:pt-3 xl:pt-4">
                 <button
                   type="button"
+                  onClick={() => handleAddToCart(product._id)}
                   className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   Add To Cart

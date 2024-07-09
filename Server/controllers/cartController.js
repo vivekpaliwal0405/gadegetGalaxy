@@ -26,22 +26,11 @@ const cartController = {
         }
     },
 
-    // async getCart(req, res, next) {
-    //     try {
-    //         const { userId } = req.params;
-    //         const cart = await Cart.findOne({ userId }).populate('items.productId');
-    //         res.status(200).json(cart);
-    //     } catch (error) {
-    //         res.status(500).json({ error: "Error while fetching cart", serverError: error });
-    //     }
-    //     // console.log(userId);
-    // },
-
 
     async getCart(req, res, next) {
         try {
             const { userId } = req.params;
-            const cart = await Cart.findOne({ _id: userId }).populate('Product');
+            const cart = await Cart.findOne({  userId }).populate('items.productId');
             if (!cart) {
                 return res.status(404).json({ error: "Cart not found" });
             }
@@ -67,6 +56,27 @@ const cartController = {
             res.status(500).json({ error: "Error while removing item from cart", serverError: error });
         }
     },
+
+    // async updateQuantity(req, res, next) {
+    //     try {
+    //         const { userId, productId, quantity } = req.body;
+    //         const cart = await Cart.findOne({ userId });
+    //         if (cart) {
+    //             const itemIndex = cart.items.findIndex(item => item.productId == productId);
+    //             if (itemIndex > -1) {
+    //                 cart.items[itemIndex].quantity = quantity;
+    //                 await cart.save();
+    //                 res.status(200).json(cart);
+    //             } else {
+    //                 res.status(404).json({ error: "Item not found in cart" });
+    //             }
+    //         } else {
+    //             res.status(404).json({ error: "Cart not found" });
+    //         }
+    //     } catch (error) {
+    //         res.status(500).json({ error: "Error while updating item quantity", serverError: error });
+    //     }
+    // },
 };
 
 module.exports = cartController;
