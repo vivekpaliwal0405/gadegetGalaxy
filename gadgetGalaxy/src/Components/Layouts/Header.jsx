@@ -8,6 +8,7 @@ import Darkmode from "../modules/Darkmode";
 import LoginIcon from "../modules/LoginIcon";
 import Login from "../registration/Login";
 import { Link } from "react-router-dom";
+import { FaHeart } from "react-icons/fa";
 
 const menuItems = [
   {
@@ -109,6 +110,10 @@ export function Header() {
               onClick={toggleInputVisibility}
             />
           </div>
+
+          <Link to="/Wishlist" className="relative">
+          <FaHeart  className="text-xl text-gray-600 dark:text-gray-400" />
+          </Link>
 
           <Link to="/cart" className="relative">
             <FaCartShopping className="text-xl text-gray-600 dark:text-gray-400" />

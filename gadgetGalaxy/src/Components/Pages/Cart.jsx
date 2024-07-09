@@ -116,30 +116,7 @@ function Cart() {
                 ))}
               </ul>
             </section>
-            {/* <section aria-labelledby="summary-heading" className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0">
-              <h2 id="summary-heading" className="border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4">Price Details</h2>
-              <div>
-                <dl className="space-y-1 px-2 py-4">
-                  <div className="flex items-center justify-between">
-                    <dt className="text-sm text-gray-800">Price ({products.length} item{products.length > 1 ? 's' : ''})</dt>
-                    <dd className="text-sm font-medium text-gray-900">₹{products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0)}</dd>
-                  </div>
-                  <div className="flex items-center justify-between pt-4">
-                    <dt className="flex items-center text-sm text-gray-800"><span>Discount</span></dt>
-                    <dd className="text-sm font-medium text-green-700">- ₹{products.reduce((acc, product) => acc + (product.productId.originalPrice - product.productId.price) * product.quantity, 0)}</dd>
-                  </div>
-                  <div className="flex items-center justify-between py-4">
-                    <dt className="flex text-sm text-gray-800"><span>Delivery Charges</span></dt>
-                    <dd className="text-sm font-medium text-green-700">Free</dd>
-                  </div>
-                  <div className="flex items-center justify-between border-y border-dashed py-4 ">
-                    <dt className="text-base font-medium text-gray-900">Total Amount</dt>
-                    <dd className="text-base font-medium text-gray-900">₹{products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0)}</dd>
-                  </div>
-                </dl>
-                <div className="px-2 pb-4 font-medium text-green-700">You will save ₹{products.reduce((acc, product) => acc + (product.productId.originalPrice - product.productId.price) * product.quantity, 0)} on this order</div>
-              </div>
-            </section> */}
+
             <section aria-labelledby="summary-heading" className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0">
   <h2 id="summary-heading" className="border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4">Price Details</h2>
   <div>

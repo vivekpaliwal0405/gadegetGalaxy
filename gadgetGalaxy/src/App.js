@@ -23,6 +23,7 @@ import Cart from "./Components/Pages/Cart";
 import Singleproduct from "./Components/Pages/Singleproduct";
 import Discount from "./Components/Pages/Discount";
 import CoustomerOrderPage from "./Admin/pages/CoustomerOrderPage";
+import Wishlist from "./Components/Pages/Wishlist";
 
 
 
@@ -54,6 +55,7 @@ function App() {
     <Route path="/About" element={<About />} /> 
     <Route path="/Contact" element={<Contact />} /> 
     <Route path="/Product" element={<ProductPage />} /> 
+    <Route path="/Wishlist" element={<Wishlist />} /> 
     <Route path="/Cart" element={<Cart />} /> 
     <Route path="/Discount" element={<Discount/>} /> 
     <Route path="/Singleproduct/:id" element={<Singleproduct/>} /> 
