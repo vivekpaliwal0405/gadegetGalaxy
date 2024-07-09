@@ -1,16 +1,18 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Cart() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCartData = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
-        setError('User not logged in');
+        navigate("/SignUp");
+        
         return;
       }
 

@@ -12,6 +12,7 @@ const ProductPage = () => {
   const videoRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const [isProductAdded, setIsProductAdded] = useState(false);
 
   useEffect(() => {
     axios
@@ -56,6 +57,10 @@ const ProductPage = () => {
     })
     .then(response => {
       console.log(`Product with id ${productId} added to cart.`, response.data);
+      setIsProductAdded(true); // Update the state here
+      setTimeout(() => {
+        setIsProductAdded(false); // Reset the state after 2 seconds
+      }, 500);
     })
     .catch(error => {
       console.error('Error adding product to cart:', error.response.data);
@@ -137,6 +142,32 @@ const ProductPage = () => {
                 </div>
               </div>
             ))}
+          {isProductAdded && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div
+            id="toast-simple"
+            className="flex items-center p-4 space-x-4 text-gray-500 bg-white divide-x divide-gray-200 rounded-lg shadow dark:text-gray-400 dark:divide-gray-700 dark:bg-gray-800"
+            role="alert"
+          >
+            <svg
+              className="w-5 h-5 text-blue-600 dark:text-blue-500 rotate-45"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 18 20"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"
+              />
+            </svg>
+            <div className="pl-4 text-sm font-normal">Added to cart</div>
+          </div>
+        </div>
+      )}
           </div>
         </div>
       </div>
