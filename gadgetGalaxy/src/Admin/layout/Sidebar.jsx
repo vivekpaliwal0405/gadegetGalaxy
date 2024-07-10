@@ -2,7 +2,6 @@ import React from "react";
 import {
   FaHome,
   FaEye ,
-  FaUsers,
   FaBoxOpen,
   FaChevronRight,
   FaSignOutAlt,

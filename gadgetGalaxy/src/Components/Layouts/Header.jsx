@@ -6,7 +6,6 @@ import { FaCartShopping } from "react-icons/fa6";
 import "../../App.css";
 import Darkmode from "../modules/Darkmode";
 import LoginIcon from "../modules/LoginIcon";
-import Login from "../registration/Login";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 

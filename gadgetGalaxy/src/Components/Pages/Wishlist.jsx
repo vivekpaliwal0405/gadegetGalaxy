@@ -14,7 +14,7 @@ function Wishlist() {
             <div key={index} className="relative w-full h-60 overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105">
               <img
                 src={image}
-                alt="image"
+                alt="prorduct"
                 className="w-full h-full object-cover relative z-0 rounded-lg"
               />
               <div className="absolute top-2 right-2">
