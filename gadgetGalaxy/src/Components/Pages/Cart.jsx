@@ -1,18 +1,19 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../modules/CartContext';
 
 function Cart() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { updateCartItemsCount } = useCart();
 
   useEffect(() => {
     const fetchCartData = async () => {
       const token = localStorage.getItem('token');
       if (!token) {
         navigate("/SignUp");
-        
         return;
       }
 
@@ -25,13 +26,14 @@ function Cart() {
           }
         });
         setProducts(response.data.items);
+        updateCartItemsCount(response.data.items.length);
       } catch (err) {
         setError(err.message);
       }
     };
 
     fetchCartData();
-  }, []);
+  }, [navigate, updateCartItemsCount]);
 
   const handleRemove = async (productId) => {
     const token = localStorage.getItem('token');
@@ -48,7 +50,37 @@ function Cart() {
           Authorization: `Bearer ${token}`
         }
       });
-      setProducts(products.filter(product => product.productId._id !== productId));
+      const updatedProducts = products.filter(product => product.productId._id !== productId);
+      setProducts(updatedProducts);
+      updateCartItemsCount(updatedProducts.length);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleQuantityChange = async (productId, newQuantity) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setError('User not logged in');
+      return;
+    }
+
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+    try {
+      await axios.put(`http://localhost:4001/cart/${userId}/${productId}`, 
+        { quantity: newQuantity },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      setProducts(products.map(product => 
+        product.productId._id === productId 
+          ? {...product, quantity: newQuantity} 
+          : product
+      ));
     } catch (err) {
       setError(err.message);
     }
@@ -99,9 +131,9 @@ function Cart() {
                     </li>
                     <div className="mb-2 flex">
                       <div className="min-w-24 flex">
-                        <button type="button" className="h-7 w-7">-</button>
+                        <button type="button" className="h-7 w-7" onClick={() => handleQuantityChange(product.productId._id, Math.max(1, product.quantity - 1))}>-</button>
                         <input type="text" className="mx-1 h-7 w-9 rounded-md border text-center" value={product.quantity} readOnly />
-                        <button type="button" className="flex h-7 w-7 items-center justify-center">+</button>
+                        <button type="button" className="flex h-7 w-7 items-center justify-center" onClick={() => handleQuantityChange(product.productId._id, product.quantity + 1)}>+</button>
                       </div>
                       <div className="ml-6 flex text-sm">
                         <button type="button" className="flex items-center space-x-1 px-2 py-1 pl-0" onClick={() => handleRemove(product.productId._id)}>
@@ -120,30 +152,29 @@ function Cart() {
             </section>
 
             <section aria-labelledby="summary-heading" className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0">
-  <h2 id="summary-heading" className="border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4">Price Details</h2>
-  <div>
-    <dl className="space-y-1 px-2 py-4">
-      <div className="flex items-center justify-between">
-        <dt className="text-sm text-gray-800">Price ({products.length} item{products.length > 1 ? 's' : ''})</dt>
-        <dd className="text-sm font-medium text-gray-900">₹{products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0)}</dd>
-      </div>
-      <div className="flex items-center justify-between pt-4">
-        <dt className="flex items-center text-sm text-gray-800"><span>Discount</span></dt>
-        <dd className="text-sm font-medium text-green-700">- ₹{products.reduce((acc, product) => acc + (product.productId.originalPrice - product.productId.price) * product.quantity, 0)}</dd>
-      </div>
-      <div className="flex items-center justify-between py-4">
-        <dt className="flex text-sm text-gray-800"><span>Delivery Charges</span></dt>
-        <dd className="text-sm font-medium text-gray-900">₹99</dd>
-      </div>
-      <div className="flex items-center justify-between border-y border-dashed py-4 ">
-        <dt className="text-base font-medium text-gray-900">Total Amount</dt>
-        <dd className="text-base font-medium text-gray-900">₹{products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0) + 99}</dd>
-      </div>
-    </dl>
-    <div className="px-2 pb-4 font-medium text-green-700">You will save ₹{products.reduce((acc, product) => acc + (product.productId.originalPrice - product.productId.price) * product.quantity, 0)} on this order</div>
-  </div>
-</section>
-
+              <h2 id="summary-heading" className="border-b border-gray-200 px-4 py-3 text-lg font-medium text-gray-900 sm:p-4">Price Details</h2>
+              <div>
+                <dl className="space-y-1 px-2 py-4">
+                  <div className="flex items-center justify-between">
+                    <dt className="text-sm text-gray-800">Price ({products.length} item{products.length > 1 ? 's' : ''})</dt>
+                    <dd className="text-sm font-medium text-gray-900">₹{products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0)}</dd>
+                  </div>
+                  <div className="flex items-center justify-between pt-4">
+                    <dt className="flex items-center text-sm text-gray-800"><span>Discount</span></dt>
+                    <dd className="text-sm font-medium text-green-700">- ₹{products.reduce((acc, product) => acc + (product.productId.originalPrice - product.productId.price) * product.quantity, 0)}</dd>
+                  </div>
+                  <div className="flex items-center justify-between py-4">
+                    <dt className="flex text-sm text-gray-800"><span>Delivery Charges</span></dt>
+                    <dd className="text-sm font-medium text-gray-900">₹99</dd>
+                  </div>
+                  <div className="flex items-center justify-between border-y border-dashed py-4 ">
+                    <dt className="text-base font-medium text-gray-900">Total Amount</dt>
+                    <dd className="text-base font-medium text-gray-900">₹{products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0) + 99}</dd>
+                  </div>
+                </dl>
+                <div className="px-2 pb-4 font-medium text-green-700">You will save ₹{products.reduce((acc, product) => acc + (product.productId.originalPrice - product.productId.price) * product.quantity, 0)} on this order</div>
+              </div>
+            </section>
           </form>
         </div>
       </div>

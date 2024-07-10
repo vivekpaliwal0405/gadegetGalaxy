@@ -8,6 +8,7 @@ import Darkmode from "../modules/Darkmode";
 import LoginIcon from "../modules/LoginIcon";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
+import { useCart } from '../modules/CartContext.js';
 
 const menuItems = [
   {
@@ -28,6 +29,8 @@ const menuItems = [
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState();
   const [isInputVisible, setInputVisible] = useState();
+  const { cartItemsCount } = useCart();
+
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -115,11 +118,13 @@ export function Header() {
           </Link>
 
           <Link to="/cart" className="relative">
-            <FaCartShopping className="text-xl text-gray-600 dark:text-gray-400" />
-            <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
-              4
-            </div>
-          </Link>
+      <FaCartShopping className="text-xl text-gray-600 dark:text-gray-400" />
+      {cartItemsCount > 0 && (
+        <div className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">
+          {cartItemsCount}
+        </div>
+      )}
+    </Link>
 
           <Darkmode />
           <LoginIcon />

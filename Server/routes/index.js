@@ -8,6 +8,8 @@ const productController = require('../controllers/productController');
 const signUpController = require('../controllers/userSignUpController');
 const contactController = require('../controllers/contactController');
 const cartController = require('../controllers/cartController');
+const wishlistController = require('../controllers/wishlistController');
+
 const authenticateToken = require('../Auth/userAuth');
 
 const storage = multer.diskStorage({
@@ -52,5 +54,8 @@ router.get("/cart/:userId", authenticateToken, cartController.getCart);
 router.delete("/cart/:userId/:productId", authenticateToken, cartController.removeItem);
 // router.put("/cart/update-quantity", authenticateToken, cartController.updateQuantity);
 
-
+//wishlist routes
+router.post("/wishlist", authenticateToken, wishlistController.addItem);
+router.get("/wishlist/:userId", authenticateToken, wishlistController.getWishlist);
+router.delete("/wishlist/:userId/:productId", authenticateToken, wishlistController.removeItem);
 module.exports = router;

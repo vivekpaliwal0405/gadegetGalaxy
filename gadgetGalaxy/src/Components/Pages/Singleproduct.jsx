@@ -8,6 +8,7 @@ export function Singleproduct() {
   const [product, setProduct] = useState(null);
   const [error, setError] = useState(null);
   const [isProductAdded, setIsProductAdded] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     axios
@@ -43,6 +44,7 @@ export function Singleproduct() {
     })
     .then(response => {
       console.log(`Product with id ${productId} added to cart.`, response.data);
+      setToastMessage('Added to cart');
       setIsProductAdded(true);
       setTimeout(() => {
         setIsProductAdded(false);
@@ -50,6 +52,33 @@ export function Singleproduct() {
     })
     .catch(error => {
       console.error('Error adding product to cart:', error.response.data);
+    });
+  };
+
+
+  const handleAddToWishlist = (productId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('User not logged in');
+      return;
+    }
+
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
+    axios.post('http://localhost:4001/wishlist', { userId, productId }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      console.log(`Product with id ${productId} added to wishlist.`, response.data);
+      setToastMessage('Added to wishlist');
+      setIsProductAdded(true);
+      setTimeout(() => {
+        setIsProductAdded(false);
+      }, 1000);
+    })
+    .catch(error => {
+      console.error('Error adding product to wishlist:', error.response.data);
     });
   };
 
@@ -75,9 +104,17 @@ export function Singleproduct() {
               </div>
             </div>
             <div className="flex shrink-0 flex-col lg:w-[430px] xl:w-[470px] 2xl:w-[480px]">
-              <div className="pb-5">
+              <div className="pb-3">
                 <h2 className="text-lg font-semibold md:text-xl xl:text-2xl">{product.productName}</h2>
                 <p className="mt-4 font-semibold">{product.price}</p>
+              </div>
+              <div className="pt-1 xl:pt-4">
+                <h3 className="text-15px mb-3 font-semibold sm:text-base lg:mb-3.5">
+                  Product Details:
+                </h3>
+                <p className="text-sm">
+                  {product.description}
+                </p>
               </div>
               <div className="mb-2 pt-0.5">
                 <h4 className="text-15px mb-3 font-normal capitalize text-opacity-70">
@@ -107,6 +144,7 @@ export function Singleproduct() {
                 <div className="grid grid-cols-2 gap-2.5">
                   <button
                     type="button"
+                    onClick={() => handleAddToWishlist(product._id)}
                     className="inline-flex items-center justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                   >
                     <Heart size={16} className="mr-3" />
@@ -123,14 +161,7 @@ export function Singleproduct() {
                   </div>
                 </div>
               </div>
-              <div className="pt-6 xl:pt-8">
-                <h3 className="text-15px mb-3 font-semibold sm:text-base lg:mb-3.5">
-                  Product Details:
-                </h3>
-                <p className="text-sm">
-                  {product.description}
-                </p>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -157,7 +188,7 @@ export function Singleproduct() {
                 d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"
               />
             </svg>
-            <div className="pl-4 text-sm font-normal">Added to cart</div>
+            <div className="pl-4 text-sm font-normal">{toastMessage}</div>
           </div>
         </div>
       )}

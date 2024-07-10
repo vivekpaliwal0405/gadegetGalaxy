@@ -24,6 +24,7 @@ import Singleproduct from "./Components/Pages/Singleproduct";
 import Discount from "./Components/Pages/Discount";
 import CoustomerOrderPage from "./Admin/pages/CoustomerOrderPage";
 import Wishlist from "./Components/Pages/Wishlist";
+import { CartProvider } from "./Components/modules/CartContext";
 
 
 
@@ -33,7 +34,7 @@ import Wishlist from "./Components/Pages/Wishlist";
 function App() {
   return (
    <>
-    
+    <CartProvider>
    <BrowserRouter>
    {/* <BackgroundBeams classname='bg-black h-screen'/> */}
     <Routes>
@@ -67,7 +68,7 @@ function App() {
     </Route>
     </Routes>
    </BrowserRouter> 
-
+   </CartProvider> 
   
    </>
   );
