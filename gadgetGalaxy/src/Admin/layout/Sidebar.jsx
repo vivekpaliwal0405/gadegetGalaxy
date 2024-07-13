@@ -3,12 +3,12 @@ import {
   FaHome,
   FaEye ,
   FaBoxOpen,
-  FaChevronRight,
   FaSignOutAlt,
 } from "react-icons/fa";
 import { MdOutlineInventory2, MdQueryStats } from "react-icons/md";
 import { TbCategory } from "react-icons/tb";
 import { Link } from "react-router-dom";
+import image from "../../Components/img/gg.jpg"
 
 const App = () => {
   return (
@@ -16,12 +16,13 @@ const App = () => {
       <div className="w-64 bg-black">
         <header className="flex items-center justify-between p-4">
           <div className="flex items-center space-x-4">
-            <div className="h-10 w-10 bg-gray-300 rounded-md"></div>
+            <div className="h-10 w-10 bg-gray-300 rounded-md">
+              <img src={image} alt="logo" />
+            </div>
             <div>
               <div className="text-lg font-bold">GadgetGalaxy</div>
             </div>
           </div>
-          <FaChevronRight className="h-6 w-6 cursor-pointer" />
         </header>
 
         <nav className="mt-6">
@@ -40,12 +41,6 @@ const App = () => {
           </ul>
         </nav>
       </div>
-
-      {/* Main Content */}
-      {/* <div className="flex-1">
-        Add your main content here
-        <h1>Main Content Area</h1>
-      </div> */}
     </div>
   );
 };

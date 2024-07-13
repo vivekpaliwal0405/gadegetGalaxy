@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import video from "../img/productad.mp4";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { AiOutlineHeart } from "react-icons/ai";
 
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
@@ -13,6 +13,7 @@ const ProductPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isProductAdded, setIsProductAdded] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     axios
@@ -57,6 +58,7 @@ const ProductPage = () => {
     })
     .then(response => {
       console.log(`Product with id ${productId} added to cart.`, response.data);
+      setToastMessage('Added to cart');
       setIsProductAdded(true); // Update the state here
       setTimeout(() => {
         setIsProductAdded(false); // Reset the state after 2 seconds
@@ -64,6 +66,34 @@ const ProductPage = () => {
     })
     .catch(error => {
       console.error('Error adding product to cart:', error.response.data);
+    });
+  };
+
+
+  const handleAddToWishlist = (productId) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('User not logged in');
+      return;
+    }
+
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
+    axios.post('http://localhost:4001/wishlist', { userId, productId }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      console.log(`Product with id ${productId} added to wishlist.`, response.data);
+      setToastMessage('Added to wishlist');
+      
+      
+      setTimeout(() => {
+        setIsProductAdded(false);
+      }, 1000);
+    })
+    .catch(error => {
+      console.error('Error adding product to wishlist:', error.response.data);
     });
   };
 
@@ -129,6 +159,9 @@ const ProductPage = () => {
                 <div className="absolute top-2 right-2 bg-white bg-opacity-50 backdrop-blur-sm text-xs text-black px-2 py-1 rounded-md">
                   {product.category}
                 </div>
+                <button onClick={() => handleAddToWishlist(product._id)} className="absolute top-2 left-2 text-xl text-red-500">
+            <AiOutlineHeart />
+          </button>
                 <div className="p-4">
                   <h1 className="text-lg font-semibold">{product.productName}</h1>
                   <p className="mt-3 text-sm text-gray-600">₹{product.price}</p>
@@ -164,7 +197,7 @@ const ProductPage = () => {
                 d="m9 17 8 2L9 1 1 19l8-2Zm0 0V9"
               />
             </svg>
-            <div className="pl-4 text-sm font-normal">Added to cart</div>
+            <div className="pl-4 text-sm font-normal">{toastMessage}</div>
           </div>
         </div>
       )}
