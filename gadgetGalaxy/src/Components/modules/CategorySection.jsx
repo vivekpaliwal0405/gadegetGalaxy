@@ -51,7 +51,7 @@ function CategorySection() {
                   <p className="text-4xl xl:text-5xl font-bold opacity-50 mb-2">
                     Smartwatch
                   </p>
-                  <Link to="/Product?category=watch">
+                  <Link to="/Product?category=Watch">
                     <Button
                       text="Browse"
                       bgColor={"bg-secondary"}
