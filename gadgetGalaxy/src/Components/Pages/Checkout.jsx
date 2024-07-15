@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import logo from  "../img/gg.jpg"
 
 const Checkout = () => {
   const [error, setError] = useState(null);
@@ -27,8 +28,9 @@ const Checkout = () => {
         setError(err.message);
       }
     };
-
+    
     fetchCheckout();
+    loadRazorpayScript("https://checkout.razorpay.com/v1/checkout.js");
   }, [navigate]);
 
   const initialFormState = {
@@ -42,6 +44,21 @@ const Checkout = () => {
   };
 
   const [form, setForm] = useState(initialFormState);
+
+  const loadRazorpayScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
 
   const handleChange = (ev) => {
     const { name, value } = ev.target;
@@ -71,7 +88,7 @@ const Checkout = () => {
           console.log('User data:', data);
           setForm(initialFormState);
           // Navigate to a success page or show a success message
-          navigate('/order-confirmation');
+         
         } else {
           alert(data.error || 'An unknown error occurred');
         }
@@ -79,6 +96,83 @@ const Checkout = () => {
         console.log(err);
       }
     }
+
+    try {
+      // Calculate total amount
+      const totalAmount = products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0);
+      // Create order on the server
+      const orderResponse = await fetch("http://localhost:4001/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${"accessToken"}`, //
+        },
+        body: JSON.stringify({
+          amount: totalAmount, // Convert to smallest currency unit
+          currency: "INR",
+          receipt: `receipt_${Date.now()}`,
+          // notes: { userId: currentUser._id },
+        }),
+      });
+     
+      console.log("orderresponse", orderResponse);
+      const orderData = await orderResponse.json();
+
+      // Define Razorpay options
+      const options = {
+        key: "", // Replace with your Razorpay key ID
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "GadgetGalaxy",
+        description: "Payment for your order",
+        image: `${logo }`, // Replace with your logo URL
+        order_id: orderData.id,
+        handler: async (response) => {
+          // Verify payment on the server
+          const paymentVerificationResponse = await fetch(
+            "http://localhost:4001/verify-order",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            }
+          );
+
+          const verificationData = await paymentVerificationResponse.json();
+
+          if (verificationData.message === "Payment verified successfully") {
+            alert("Payment successful!");
+            navigate("/")
+          } else {
+            alert("Payment verification failed.");
+          }
+        },
+        prefill: {
+          name: "",
+          email:  "",
+          contact:  "9999944444",
+        },
+        notes: {
+          address: "Customer Address",
+        },
+        theme: {
+          color: "#528ff0",
+        },
+      };
+
+      // Open Razorpay Checkout
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      console.error("Payment error:", error);
+    }
+
   };
 
   const location = useLocation();

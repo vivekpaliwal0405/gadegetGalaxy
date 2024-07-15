@@ -10,6 +10,7 @@ const contactController = require('../controllers/contactController');
 const cartController = require('../controllers/cartController');
 const wishlistController = require('../controllers/wishlistController');
 const checkoutController = require('../controllers/checkoutController');
+const paymentController = require('../controllers/paymentController');
 
 const authenticateToken = require('../Auth/userAuth');
 
@@ -68,6 +69,12 @@ router.delete("/wishlist/:userId/:productId", authenticateToken, wishlistControl
 router.post("/checkout", checkoutController.checkoutstore);
 router.get("/checkout", checkoutController.checkoutindex);
 router.delete("/checkout/:id", checkoutController.checkoutdelete);
+
+
+
+//payment routes
+router.post("/create-order", paymentController.creatOrder);
+router.post("/verify-order", paymentController.verifyOrder);
 
 
 module.exports = router;
