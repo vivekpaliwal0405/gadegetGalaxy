@@ -25,6 +25,7 @@ import Discount from "./Components/Pages/Discount";
 import CoustomerOrderPage from "./Admin/pages/CoustomerOrderPage";
 import Wishlist from "./Components/Pages/Wishlist";
 import { CartProvider } from "./Components/modules/CartContext";
+import Checkout from "./Components/Pages/Checkout";
 
 
 
@@ -54,6 +55,7 @@ function App() {
     <Route path="/" element={<Layout />}>
     <Route path="/" element={<Home />} /> 
     <Route path="/About" element={<About />} /> 
+    <Route path="/Checkout" element={<Checkout />} /> 
     <Route path="/Contact" element={<Contact />} /> 
     <Route path="/Product" element={<ProductPage />} /> 
     <Route path="/Wishlist" element={<Wishlist />} /> 

@@ -9,6 +9,7 @@ const signUpController = require('../controllers/userSignUpController');
 const contactController = require('../controllers/contactController');
 const cartController = require('../controllers/cartController');
 const wishlistController = require('../controllers/wishlistController');
+const checkoutController = require('../controllers/checkoutController');
 
 const authenticateToken = require('../Auth/userAuth');
 
@@ -54,8 +55,19 @@ router.get("/cart/:userId", authenticateToken, cartController.getCart);
 router.delete("/cart/:userId/:productId", authenticateToken, cartController.removeItem);
 // router.put("/cart/update-quantity", authenticateToken, cartController.updateQuantity);
 
+
+
 //wishlist routes
 router.post("/wishlist", authenticateToken, wishlistController.addItem);
 router.get("/wishlist/:userId", authenticateToken, wishlistController.getWishlist);
 router.delete("/wishlist/:userId/:productId", authenticateToken, wishlistController.removeItem);
+
+
+
+//checkout routes
+router.post("/checkout", checkoutController.checkoutstore);
+router.get("/checkout", checkoutController.checkoutindex);
+router.delete("/checkout/:id", checkoutController.checkoutdelete);
+
+
 module.exports = router;

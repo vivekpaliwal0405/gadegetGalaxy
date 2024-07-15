@@ -94,6 +94,10 @@ function Cart() {
     return <div className="text-gray-500">No items in your cart.</div>;
   }
 
+  const navigateToCheckout = () => {
+    navigate('/Checkout', { state: { products } });
+  }
+
   return (
     <>
       <div className="mx-auto max-w-7xl px-2 lg:px-0">
@@ -146,6 +150,14 @@ function Cart() {
                         </button>
                       </div>
                     </div>
+                   <div className="flex justify-center mt-6">
+                      <button 
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded justify-center" 
+                        onClick={navigateToCheckout}
+                      >
+                        Proceed to Checkout
+                      </button>
+                   </div>
                   </div>
                 ))}
               </ul>
@@ -167,12 +179,11 @@ function Cart() {
                     <dt className="flex text-sm text-gray-800"><span>Delivery Charges</span></dt>
                     <dd className="text-sm font-medium text-gray-900">₹99</dd>
                   </div>
-                  <div className="flex items-center justify-between border-y border-dashed py-4 ">
+                  <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                     <dt className="text-base font-medium text-gray-900">Total Amount</dt>
                     <dd className="text-base font-medium text-gray-900">₹{products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0) + 99}</dd>
                   </div>
                 </dl>
-                <div className="px-2 pb-4 font-medium text-green-700">You will save ₹{products.reduce((acc, product) => acc + (product.productId.originalPrice - product.productId.price) * product.quantity, 0)} on this order</div>
               </div>
             </section>
           </form>
