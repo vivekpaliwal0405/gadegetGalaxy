@@ -99,7 +99,10 @@ const Checkout = () => {
 
     try {
       // Calculate total amount
-      const totalAmount = products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0);
+      const subtotal = products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0);
+  const shipping = 99.00; // Example shipping cost
+  
+      const totalAmount =(subtotal + shipping );
       // Create order on the server
       const orderResponse = await fetch("http://localhost:4001/create-order", {
         method: "POST",
@@ -184,8 +187,8 @@ const Checkout = () => {
 
   const subtotal = products.reduce((acc, product) => acc + product.productId.price * product.quantity, 0);
   const shipping = 99.00; // Example shipping cost
-  const taxes = (subtotal * 0.086).toFixed(2); // Example tax rate
-  const total = (subtotal + shipping + parseFloat(taxes)).toFixed(2);
+  
+  const total = (subtotal + shipping );
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
@@ -325,10 +328,7 @@ const Checkout = () => {
                 <p>Shipping</p>
                 <p>₹{shipping.toFixed(2)}</p>
               </div>
-              <div className="flex justify-between">
-                <p>Taxes</p>
-                <p>₹{taxes}</p>
-              </div>
+             
             </div>
             <div className="flex justify-between font-semibold text-lg">
               <p>Total</p>

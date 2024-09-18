@@ -6,7 +6,7 @@ const cartController = {
     async addItem(req, res, next) {
         try {
             const { userId, productId, quantity } = req.body;
-            console.log("Add item request body:", req.body); // Add log for debugging
+            console.log("Add item request body:", req.body);
             let cart = await Cart.findOne({ userId });
             if (cart) {
                 const itemIndex = cart.items.findIndex(item => item.productId == productId);
@@ -21,7 +21,7 @@ const cartController = {
             await cart.save();
             res.status(201).json(cart);
         } catch (error) {
-            console.error("Error while adding item to cart:", error); // Add log for debugging
+            console.error("Error while adding item to cart:", error); 
             res.status(500).json({ error: "Error while adding item to cart", serverError: error });
         }
     },
