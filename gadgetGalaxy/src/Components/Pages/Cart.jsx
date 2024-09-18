@@ -64,12 +64,12 @@ function Cart() {
       setError('User not logged in');
       return;
     }
-
+  
     const userId = JSON.parse(atob(token.split('.')[1])).id;
-
+  
     try {
-      await axios.put(`http://localhost:4001/cart/${userId}/${productId}`, 
-        { quantity: newQuantity },
+      await axios.put(`http://localhost:4001/cart/update-quantity`, 
+        { userId, productId, quantity: newQuantity }, // Define quantity here
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -94,10 +94,15 @@ function Cart() {
     return <div className="text-gray-500">No items in your cart.</div>;
   }
 
-  const navigateToCheckout = () => {
-    navigate('/Checkout', { state: { products } });
-  }
+  // const navigateToCheckout = () => {
+  //   navigate('/Checkout', { state: { products } });
+  // }
 
+  const navigateToCheckout = () => {
+    setProducts([]); // Clear the cart
+    updateCartItemsCount(0);
+    navigate('/Checkout', { state: { products } }); // Navigate to the checkout page
+  };
   return (
     <>
       <div className="mx-auto max-w-7xl px-2 lg:px-0">
@@ -150,6 +155,9 @@ function Cart() {
                         </button>
                       </div>
                     </div>
+                  </div>
+                ))}
+              </ul>
                    <div className="flex justify-center mt-6">
                       <button 
                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded justify-center" 
@@ -158,9 +166,6 @@ function Cart() {
                         Proceed to Checkout
                       </button>
                    </div>
-                  </div>
-                ))}
-              </ul>
             </section>
 
             <section aria-labelledby="summary-heading" className="mt-16 rounded-md bg-white lg:col-span-4 lg:mt-0 lg:p-0">

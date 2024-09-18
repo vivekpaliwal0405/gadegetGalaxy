@@ -55,7 +55,7 @@ router.post("/cart", authenticateToken, cartController.addItem);
 router.get("/cart/:userId", authenticateToken, cartController.getCart);
 router.delete("/cart/:userId/:productId", authenticateToken, cartController.removeItem);
 // router.put("/cart/update-quantity", authenticateToken, cartController.updateQuantity);
-
+router.put("/cart/update-quantity", authenticateToken, cartController.updateQuantity);
 
 
 //wishlist routes

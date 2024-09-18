@@ -57,26 +57,27 @@ const cartController = {
         }
     },
 
-    // async updateQuantity(req, res, next) {
-    //     try {
-    //         const { userId, productId, quantity } = req.body;
-    //         const cart = await Cart.findOne({ userId });
-    //         if (cart) {
-    //             const itemIndex = cart.items.findIndex(item => item.productId == productId);
-    //             if (itemIndex > -1) {
-    //                 cart.items[itemIndex].quantity = quantity;
-    //                 await cart.save();
-    //                 res.status(200).json(cart);
-    //             } else {
-    //                 res.status(404).json({ error: "Item not found in cart" });
-    //             }
-    //         } else {
-    //             res.status(404).json({ error: "Cart not found" });
-    //         }
-    //     } catch (error) {
-    //         res.status(500).json({ error: "Error while updating item quantity", serverError: error });
-    //     }
-    // },
+    async updateQuantity(req, res, next) {
+        try {
+          const { userId, productId, quantity } = req.body;
+          const cart = await Cart.findOne({ userId });
+          if (cart) {
+            const itemIndex = cart.items.findIndex(item => item.productId.toString() === productId);
+            if (itemIndex > -1) {
+              cart.items[itemIndex].quantity = quantity;
+              await cart.save();
+              res.status(200).json(cart);
+            } else {
+              res.status(404).json({ error: "Item not found in cart" });
+            }
+          } else {
+            res.status(404).json({ error: "Cart not found" });
+          }
+        } catch (error) {
+          console.error("Error while updating item quantity:", error);
+          res.status(500).json({ error: "Error while updating item quantity", serverError: error });
+        }
+      }
 };
 
 module.exports = cartController;
