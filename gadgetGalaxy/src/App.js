@@ -26,6 +26,7 @@ import CoustomerOrderPage from "./Admin/pages/CoustomerOrderPage";
 import Wishlist from "./Components/Pages/Wishlist";
 import { CartProvider } from "./Components/modules/CartContext";
 import Checkout from "./Components/Pages/Checkout";
+import OrderSuccess from "./Components/Pages/OrderSuccess";
 
 
 
@@ -63,6 +64,7 @@ function App() {
     <Route path="/Discount" element={<Discount/>} /> 
     <Route path="/Singleproduct/:id" element={<Singleproduct/>} /> 
     <Route path="/Cart" element={<Cart />} /> 
+    <Route path="/OrderSuccess" element={<OrderSuccess/>} /> 
 
 
 

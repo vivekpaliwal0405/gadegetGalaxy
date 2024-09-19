@@ -9,6 +9,7 @@ import LoginIcon from "../modules/LoginIcon";
 import { Link } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { useCart } from '../modules/CartContext.js';
+import { FaBox } from "react-icons/fa6";
 
 const menuItems = [
   {
@@ -115,6 +116,9 @@ export function Header() {
 
           <Link to="/Wishlist" className="relative">
           <FaHeart  className="text-xl text-gray-600 dark:text-gray-400" />
+          </Link>
+          <Link to="/OrderSuccess" className="relative">
+          <FaBox  className="text-xl text-gray-600 dark:text-gray-400" />
           </Link>
 
           <Link to="/cart" className="relative">

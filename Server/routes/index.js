@@ -11,7 +11,7 @@ const cartController = require('../controllers/cartController');
 const wishlistController = require('../controllers/wishlistController');
 const checkoutController = require('../controllers/checkoutController');
 const paymentController = require('../controllers/paymentController');
-
+const orderController = require('../controllers/orderController');
 const authenticateToken = require('../Auth/userAuth');
 
 const storage = multer.diskStorage({
@@ -76,5 +76,11 @@ router.delete("/checkout/:id", checkoutController.checkoutdelete);
 router.post("/create-order", paymentController.creatOrder);
 router.post("/verify-order", paymentController.verifyOrder);
 
+
+//my products
+
+
+router.post('/create-order', orderController.storeOrder);
+router.get('/orders/:userId', orderController.getOrderByUserId);
 
 module.exports = router;
