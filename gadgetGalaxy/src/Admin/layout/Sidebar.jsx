@@ -49,7 +49,7 @@ const menuItems = [
   { label: "Dashboard", link: "/Admindashboard", icon: FaHome },
   { label: "Add Products", link: "/Addproduct", icon: MdOutlineInventory2 },
   { label: "View Product", link: "/Viewproduct", icon: FaEye  },
-  { label: "Add Category", link: "/Addcategory", icon: TbCategory  },
+  // { label: "Add Category", link: "/Addcategory", icon: TbCategory  },
   { label: "Querys", link: "/Coustomerquery", icon: MdQueryStats },
   { label: "Orders", link: "/CoustomerOrderpage", icon: FaBoxOpen },
   { label: "Logout", link: "/Adminlogin", icon: FaSignOutAlt },
